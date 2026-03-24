@@ -1,0 +1,173 @@
+{
+  "sample_alexa_routines": {
+    "chatgpt_query": {
+      "name": "Ask ChatGPT",
+      "description": "General ChatGPT conversation",
+      "trigger_phrase": "Hey Alexa, ask my watch",
+      "webhook_payload": {
+        "voice_input": "What's the weather like today?",
+        "intent": "ChatGPTQuery",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "summarize_text": {
+      "name": "Summarize Text",
+      "description": "Text summarization for long content",
+      "trigger_phrase": "Hey Alexa, summarize with my watch",
+      "webhook_payload": {
+        "voice_input": "Summarize this long article about artificial intelligence and its impact on modern society including machine learning advancements and ethical considerations in autonomous systems",
+        "intent": "SummarizeText",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "smart_home_lights": {
+      "name": "Control Lights",
+      "description": "Smart home lighting control",
+      "trigger_phrase": "Hey Alexa, control lights with my watch",
+      "webhook_payload": {
+        "voice_input": "Turn on the living room lights to 50% brightness",
+        "intent": "SmartHomeCommand",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "smart_home_thermostat": {
+      "name": "Control Thermostat",
+      "description": "Smart home temperature control",
+      "trigger_phrase": "Hey Alexa, set temperature with my watch",
+      "webhook_payload": {
+        "voice_input": "Set the thermostat to 72 degrees",
+        "intent": "SmartHomeCommand",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "smart_home_security": {
+      "name": "Security Control",
+      "description": "Smart home security features",
+      "trigger_phrase": "Hey Alexa, secure my home with my watch",
+      "webhook_payload": {
+        "voice_input": "Lock the front door and arm the security system",
+        "intent": "SmartHomeCommand",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "set_timer": {
+      "name": "Set Timer",
+      "description": "Create countdown timers",
+      "trigger_phrase": "Hey Alexa, set timer with my watch",
+      "webhook_payload": {
+        "voice_input": "Set a timer for 5 minutes for cooking",
+        "intent": "SetTimer",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "set_reminder": {
+      "name": "Set Reminder",
+      "description": "Create personal reminders",
+      "trigger_phrase": "Hey Alexa, remind me with my watch",
+      "webhook_payload": {
+        "voice_input": "Remind me to call mom at 3 PM today",
+        "intent": "SetReminder",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "get_weather": {
+      "name": "Get Weather",
+      "description": "Weather information request",
+      "trigger_phrase": "Hey Alexa, what's the weather on my watch",
+      "webhook_payload": {
+        "voice_input": "What's the weather forecast for today",
+        "intent": "GetWeather",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    },
+    "send_notification": {
+      "name": "Send Notification",
+      "description": "Send custom notification to phone",
+      "trigger_phrase": "Hey Alexa, notify me with my watch",
+      "webhook_payload": {
+        "voice_input": "Send notification that I'm running late",
+        "intent": "SendNotification",
+        "user_id": "your_user_id",
+        "device_id": "xiaomi_watch_s1_active",
+        "timestamp": "2024-01-01T12:00:00Z"
+      }
+    }
+  },
+  "test_cases": {
+    "webhook_test": {
+      "method": "POST",
+      "url": "http://localhost:8080/webhook/test",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "voice_input": "Hello from test webhook",
+        "intent": "ChatGPTQuery",
+        "user_id": "test_user",
+        "device_id": "test_device"
+      }
+    },
+    "health_check": {
+      "method": "GET",
+      "url": "http://localhost:8080/health",
+      "expected_response": "OK"
+    }
+  },
+  "alexa_routine_configuration": {
+    "steps": [
+      "Open Alexa app",
+      "Go to Routines → Create Routine",
+      "Set up voice trigger phrase",
+      "Add Custom action → Webhook/HTTP Request",
+      "Configure webhook URL from app",
+      "Set method to POST",
+      "Add Content-Type: application/json header",
+      "Use sample JSON payload from above",
+      "Save and test routine"
+    ],
+    "webhook_url_sources": [
+      "Local: Use app's built-in webhook server",
+      "External: Use ngrok for testing",
+      "Production: Use AWS API Gateway or similar"
+    ],
+    "ngrok_setup": {
+      "command": "ngrok http 8080",
+      "purpose": "Expose local webhook server to internet",
+      "usage": "Use ngrok URL in Alexa routine during testing"
+    }
+  },
+  "response_formats": {
+    "chatgpt_response": {
+      "type": "notification",
+      "format": "Short, concise response suitable for watch display",
+      "max_length": "150 characters",
+      "actions": ["Summarize again", "Next step"]
+    },
+    "automation_response": {
+      "type": "notification",
+      "format": "Confirmation of automation command",
+      "actions": ["Execute", "Cancel"]
+    },
+    "error_response": {
+      "type": "notification",
+      "format": "Clear error message with suggested fix",
+      "actions": []
+    }
+  }
+}
